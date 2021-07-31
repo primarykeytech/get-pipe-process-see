@@ -36,13 +36,13 @@ degree programs at each college and university.
    1. The API requires paging through the results; therefore 
    the program will need to make multiple requests until all 
    necessary data is gathered.
-   2. The data will be saved to the NoSQL AWS DynamoDB 
-   service.
+   2. The data will be saved as a comma-separated values
+      (CSV) file on AWS S3.
 2. The program will consume an API from a job posting 
 website (TBD) to gather the jobs available in the 
 matching field of the degree program chosen in step 1.
-   1. The data will be saved as a comma-separated values
-      (CSV) file on AWS S3. 
+   1. The data will be saved to the NoSQL AWS DynamoDB
+      service. 
 3. The data will then be retrieved from both DynamoDB 
 and S3, combined, and then added to the data warehouse 
 created on AWS Redshift.
