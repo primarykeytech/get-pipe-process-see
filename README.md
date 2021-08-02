@@ -32,7 +32,8 @@ know who you are).
 ## Specific Steps
 1. The program will consume the API available at the 
 US Department of Education to gather data related to
-degree programs at each college and university.
+degree programs at each college and university (COMPLETE - 
+generated file of ~ 80 MB).
    1. The API requires paging through the results; therefore 
    the program will need to make multiple requests until all 
    necessary data is gathered.
