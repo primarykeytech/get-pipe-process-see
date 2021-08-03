@@ -10,6 +10,12 @@ of a production enterprise system. This project is being
 created strictly as a demo project for you (and you 
 know who you are).
 
+The actual analysis to be performed for this demo is 
+still under consideration depending on availability and 
+quality of data as well as any insights that may be 
+found on initial review of all data.
+
+
 ### Technology Stack
 * Python 3.8
 * Amazon AWS DynamoDB
