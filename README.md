@@ -39,21 +39,21 @@ generated CSV file of ~80 MB).
    necessary data is gathered.
    2. The data will be saved as a comma-separated values
       (CSV) file on AWS S3.
-2. The program will consume an API from a job posting 
-website (TBD) to gather the jobs available in the 
+2. The program will consume an API from Jooble, a job posting 
+aggregator website to gather the jobs available in the 
 matching field of the degree program chosen in step 1.
    1. The data will be saved to the NoSQL AWS DynamoDB
       service. 
-3. The data will then be retrieved from both DynamoDB 
+4. The data will then be retrieved from both DynamoDB 
 and S3, combined, and then added to the data warehouse 
 created on AWS Redshift.
-4. The instance of AWS Redshift will be queried to 
+5. The instance of AWS Redshift will be queried to 
 retrieve the relevant data to be reviewed using Pandas. 
-5. Python will then examine the data in a simplified 
+6. Python will then examine the data in a simplified 
 way. If this were a real project, more intensive scrutiny 
 would take place to look for outliers and potential bias 
 in the resultant data set.
-6. After processing and examination, the data will be 
+7. After processing and examination, the data will be 
 visualized in Matplotlib in hopes of finding insight 
 in the data. 
 
