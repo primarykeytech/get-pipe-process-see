@@ -48,8 +48,9 @@ generated CSV file of ~80 MB).
 2. The program will consume an API from Jooble, a job posting 
 aggregator website to gather the jobs available in the 
 matching field of the degree program chosen in step 1 (**STATUS** - 
-successfully retrieving data from Jooble. Working on pushing to 
-DynamoDB).
+successfully retrieving data from Jooble. Data successfully pushes
+to DynamoDB. However, found that Jooble is limiting to 20 records
+at a time so have to handle paging of POST requests).
    1. The data will be saved to the NoSQL AWS DynamoDB
       service. 
 4. The data will then be retrieved from both DynamoDB 
