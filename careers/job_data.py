@@ -1,6 +1,38 @@
 import requests
 import config
-import csv
+import json
+import boto3
+
+
+def send_to_dynamo(json_data):
+
+    # test that we received data from api_call
+    #for row in json_data['jobs']:
+    #    print(row['title'])
+
+    # columns that will be needed
+    # id (uuid), title, location, snippet (strip html), salary, source,
+    # type, link, company, updated
+
+    # sample code from amazon
+    # if not dynamodb:
+    #     dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+    #
+    # table = dynamodb.Table('Movies')
+    # response = table.put_item(
+    #    Item={
+    #         'year': year,
+    #         'title': title,
+    #         'info': {
+    #             'plot': plot,
+    #             'rating': rating
+    #         }
+    #     }
+    # )
+    # return response
+
+
+    return True
 
 
 def api_call(the_job, location):
@@ -27,14 +59,26 @@ def api_call(the_job, location):
         # exit out of function
         return total_jobs
 
+    # get the data from the response.
+    data = response.json()
+
+    # get the total jobs for the call to return.
+    total_jobs = int(data["totalCount"])
+
+    # create the file name for results.
+    the_file = 'output/' + location + '-' + the_job + '.json'
+
     # output json to text to save in case of errors.
+    with open(the_file, 'a+') as f:
+        json.dump(response.json(), f)
 
-    # get the total jobs for the call.
+    # send json to function to save results to dynamodb.
+    # will return True if successful.
+    sent_to_dynamo = send_to_dynamo(data)
 
-    # save results to dynamodb.
+    # check bool to make sure succeeded.
+    if not sent_to_dynamo:
+        return 0
 
-
-
-    print(response.status_code)
-    print(response.json())
-
+    # return the number of jobs retrieved.
+    return total_jobs
