@@ -1,41 +1,35 @@
 import requests
 import config
 import json
-import boto3
+from dba.dynamodb import dyn_crud
 
 
 def send_to_dynamo(json_data):
+    """
+    Writes the records in the json_data object and sends
+    it to the DynamoDB instance set in the config.py file.
+    :param json_data: data from the api as json.
+    :return: True if success.
+    """
 
-    # test that we received data from api_call
-    #for row in json_data['jobs']:
-    #    print(row['title'])
+    # iterate through the jobs.
+    for row in json_data['jobs']:
 
-    # columns that will be needed
-    # id (uuid), title, location, snippet (strip html), salary, source,
-    # type, link, company, updated
+        # send to the data layer.
+        success = dyn_crud.create_record(row)
 
-    # sample code from amazon
-    # if not dynamodb:
-    #     dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
-    #
-    # table = dynamodb.Table('Movies')
-    # response = table.put_item(
-    #    Item={
-    #         'year': year,
-    #         'title': title,
-    #         'info': {
-    #             'plot': plot,
-    #             'rating': rating
-    #         }
-    #     }
-    # )
-    # return response
-
-
+    # return success here.
     return True
 
 
 def api_call(the_job, location):
+    """
+    Handles the calls to the api based on the job selected
+    and the location set.
+    :param the_job: job title e.g. programmer
+    :param location: city and state e.g. Portland, OR
+    :return: total number of jobs that meet criteria.
+    """
 
     # total jobs will be returned.
     total_jobs = 0
@@ -47,9 +41,21 @@ def api_call(the_job, location):
     # are given from the provider.
     header = {'Content-type': 'application/json'}
 
+    """
+    Appears that api only returns 20 records at a time and without 
+    documentation, I can't find how to change the setting. By 
+    experimenting and exploring how the api is used on the live 
+    jooble site, I found that I could set a page variable. 
+    TODO: Handle the paging to retrieve all records for the 
+    location and keyword.
+    """
+
     # there is no documentation but the one example includes
     # keywords and location fields.
-    body = "{'keywords': '" + the_job + "', 'location': '" + location + "'}"
+    # body = "{'keywords': '" + the_job + "', 'location': '" + location + "'}"
+    body = "{'keywords': '" + the_job + \
+           "', 'location': '" + location + \
+           "', 'page': 2}"
 
     # post the request and get the response.
     response = requests.post(url, data=body, headers=header)

@@ -6,7 +6,7 @@ def main():
     # print("Hello World!")
     # doe_data = doe.get_api_data()
     # job_data.get_jobs_data()
-    job_data.api_call("nurse", "San Francisco")
+    job_data.api_call("software", "Seattle")
     print("data retrieved")
 
 
