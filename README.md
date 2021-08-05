@@ -52,7 +52,8 @@ successfully retrieving data from Jooble. Data successfully pushes
 to DynamoDB. However, found that Jooble is limiting to 20 records
 at a time so have to handle paging of POST requests).
    1. The data will be saved to the NoSQL AWS DynamoDB
-      service. 
+      service (**STATUS** - completed Create, Retrieve, and Delete 
+operations and added tests). 
 4. The data will then be retrieved from both DynamoDB 
 and S3, combined, and then added to the data warehouse 
 created on AWS Redshift.
