@@ -20,7 +20,10 @@ def create_record(row):
 
     # create a new id since we can't necessarily trust the one
     # coming from the api.
-    the_id = str(uuid.uuid1())
+    if row['id'] == 'from-test-dyndb':
+        the_id = 'from-test-dyndb'
+    else:
+        the_id = str(uuid.uuid1())
 
     # the field snippet appears to have a lot of html so let us
     # strip out the tags before saving.
@@ -42,6 +45,68 @@ def create_record(row):
             'updated': row['updated']
         }
     )
+
+    # make sure it succeeded.
+    the_status = response['ResponseMetadata']['HTTPStatusCode']
+    bool_rtn = True if the_status == 200 else False
+
+    # return success here.
+    return bool_rtn
+
+
+def retrieve_record(record_id):
+
+    # create the boto3 object.
+    # dynamodb = boto3.resource('dynamodb',
+    #                           region_name=config.AWS_REGION)
+    client = boto3.client('dynamodb', region_name=config.AWS_REGION)
+
+    # set the table from the cfg file.
+    # table = dynamodb.Table(config.DB_TABLE)
+
+    # get the record by id.
+    response = client.get_item(
+        TableName=config.DB_TABLE, Key={'id': {'S': record_id}}
+    )
+
+    # get just the items.
+    item = response['Item']
+    return item
+
+
+def retrieve_record_by_location_title(location, title):
+
+    # create the boto3 object.
+    # dynamodb = boto3.resource('dynamodb',
+    #                           region_name=config.AWS_REGION)
+    client = boto3.client('dynamodb', region_name=config.AWS_REGION)
+
+    # set the table from the cfg file.
+    # table = dynamodb.Table(config.DB_TABLE)
+
+    # get the record by id.
+    response = client.get_item(
+        TableName=config.DB_TABLE,
+        Key={'location': {'S': location}, 'title': {'S': title}}
+    )
+
+    item = response['Item']
+    return item
+
+def list_records(title, location):
+    pass
+
+def delete_record(id):
+
+    # create the boto3 object.
+    dynamodb = boto3.resource('dynamodb',
+                              region_name=config.AWS_REGION)
+
+    # set the table from the cfg file.
+    table = dynamodb.Table(config.DB_TABLE)
+
+    # perform the operation.
+    response = table.delete_item(Key={'id': id})
 
     # make sure it succeeded.
     the_status = response['ResponseMetadata']['HTTPStatusCode']
