@@ -3,6 +3,7 @@ import config
 import json
 from dba.dynamodb import dyn_crud
 
+
 def __build_job_api(api_location, api_key, the_job, location, page_no):
     """
     Creates the querystring for the api get request from jooble.
@@ -67,7 +68,7 @@ def __handle_requests(per_page, total_jobs, the_job, location):
 
     # calculate pages based on records per request and total.
     pages = (int(total_jobs) // per_page) + 1
-    print(f'{the_job} - {location}: {pages}')
+    print(f'{the_job} - {location}: {pages} pages...')
 
     # iterate through pages and make individual requests.
     for page in range(pages):
@@ -101,6 +102,7 @@ def __handle_requests(per_page, total_jobs, the_job, location):
         if not sent_to_dynamo:
             return 0
 
+    # return the total number of jobs added to dynamo,
     return total_added
 
 
@@ -129,7 +131,7 @@ def api_call(the_job, location):
     # make sure we have a success.
     if response.status_code != 200:
         # exit out of function
-        return total_jobs
+        return total_added
 
     # get the data from the response.
     data = response.json()

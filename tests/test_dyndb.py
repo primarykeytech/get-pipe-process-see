@@ -1,6 +1,4 @@
 from dba.dynamodb import dyn_crud
-import json
-import uuid
 
 
 def test_create_dyn():

@@ -34,15 +34,15 @@ def create_record(row):
         Item={
             # create an id rather than using ones from result.
             'id': the_id,
-            'title': row['title'],
-            'company': row['company'],
-            'location': row['location'],
+            'title': row['title'] if row['title'] is not None else '',
+            'company': row['company'] if row['company'] is not None else '',
+            'location': row['location'] if row['location'] is not None else '',
             'snippit': the_desc,
-            'salary': row['salary'],
-            'source': row['source'],
-            'the_type': row['type'],
-            'the_link': row['link'],
-            'updated': row['updated']
+            'salary': row['salary'] if row['salary'] is not None else '',
+            'source': row['source'] if row['source'] is not None else '',
+            'the_type': row['type'] if row['type'] is not None else '',
+            'the_link': row['link'] if row['link'] is not None else '',
+            'updated': row['updated'] if row['updated'] is not None else ''
         }
     )
 
@@ -57,8 +57,6 @@ def create_record(row):
 def retrieve_record(record_id):
 
     # create the boto3 object.
-    # dynamodb = boto3.resource('dynamodb',
-    #                           region_name=config.AWS_REGION)
     client = boto3.client('dynamodb', region_name=config.AWS_REGION)
 
     # set the table from the cfg file.
@@ -93,10 +91,12 @@ def retrieve_record_by_location_title(location, title):
     item = response['Item']
     return item
 
+
 def list_records(title, location):
     pass
 
-def delete_record(id):
+
+def delete_record(record_id):
 
     # create the boto3 object.
     dynamodb = boto3.resource('dynamodb',
@@ -106,7 +106,7 @@ def delete_record(id):
     table = dynamodb.Table(config.DB_TABLE)
 
     # perform the operation.
-    response = table.delete_item(Key={'id': id})
+    response = table.delete_item(Key={'id': record_id})
 
     # make sure it succeeded.
     the_status = response['ResponseMetadata']['HTTPStatusCode']

@@ -50,7 +50,7 @@ aggregator website to gather the jobs available in the
 matching field of the degree program chosen in step 1 (**STATUS** - 
 successfully retrieving data from Jooble. Data successfully pushes
 to DynamoDB. However, found that Jooble is limiting to 20 records
-at a time so have to handle paging of POST requests).
+at a time. Completed handling of paging of API POST requests).
    1. The data will be saved to the NoSQL AWS DynamoDB
       service (**STATUS** - completed Create, Retrieve, and Delete 
 operations and added tests). 
