@@ -10,10 +10,11 @@ def copy_from_dynamo():
     # credentials 'aws_access_key_id=<Your-Access-Key-ID>;aws_secret_access_key=<Your-Secret-Access-Key>'
     # readratio 50;
 
+    # create the command to run for copying from dynamodb to redshift.
     copy_cmd_str = f"""copy {config.REDSHIFT_TABLE} 
         from 'dynamodb://{config.DB_TABLE}' 
         credentials 'aws_access_key_id={config.ACCESS_KEY};
-        aws_secret_access_key={config.SECRET_KEY}'"""
+        aws_secret_access_key={config.SECRET_KEY}' readratio 50"""
 
     # conn example from
     # https://stackoverflow.com/questions/45212281/how-to-connect-amazon-redshift-to-python/45213674

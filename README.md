@@ -2,7 +2,7 @@
 This demo project in Python will provide examples of 
 connecting to multiple API's, storing the data in 
 multiple places, piping the data to a warehouse, 
-processing with Apache Spark, and then visualizing the 
+retrieving the data from the warehouse, and then visualizing the 
 processed data. 
 
 Obviously, this would not be the actual architecture 
@@ -20,7 +20,6 @@ found on initial review of all data.
 * Python 3.8
 * Amazon AWS DynamoDB
 * Amazon S3
-* Apache Spark on Amazon AWS Elastic MapReduce (EMR)
 * Amazon Redshift
 
 ### Most Important Python Libraries Used
