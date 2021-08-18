@@ -54,16 +54,17 @@ at a time. Completed handling of paging of API POST requests).
    1. The data will be saved to the NoSQL AWS DynamoDB
       service (**STATUS** - completed Create, Retrieve, and Delete 
 operations and added tests). 
-4. The data will then be retrieved from both DynamoDB 
+3. The data will then be retrieved from both DynamoDB 
 and S3, combined, and then added to the data warehouse 
-created on AWS Redshift.
-5. The instance of AWS Redshift will be queried to 
+created on AWS Redshift (**STATUS** - completed copy from DynamoDB 
+and working on copy from S3).
+4. The instance of AWS Redshift will be queried to 
 retrieve the relevant data to be reviewed using Pandas. 
-6. Python will then examine the data in a simplified 
+5. Python will then examine the data in a simplified 
 way. If this were a real project, more intensive scrutiny 
 would take place to look for outliers and potential bias 
 in the resultant data set.
-7. After processing and examination, the data will be 
+6. After processing and examination, the data will be 
 visualized in Matplotlib in hopes of finding insight 
 in the data. 
 
